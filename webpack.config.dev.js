@@ -1,23 +1,30 @@
-import path from 'path';
+const path = require('path');
 
-export default {
-  debug: true,
+module.exports = {
+
   devtool: 'inline-source-map',
-  noInfo: false,
+  //noInfo: false,
   entry: [
-    path.resolve(global.__dirname, 'src/index')
+    path.resolve(__dirname, '/src/index.js')
   ],
   target: 'web',
   output: {
-    path: path.resolve(global.__dirname, 'src'),
+    path: path.resolve(__dirname, '../src'),
     publicPath: '/',
     filename: 'bundle.js'
   },
+  devServer: {
+    debug: true,
+    noInfo: false
+  },
+  mode:'none',
   plugins: [],
   module: {
-    loaders: [
-      {test: /\.js$/, exclude: /node_modules/, loaders: ['babel']},
-      {test: /\.css$/, loaders: ['style','css']}
+    rules: [
+      {loaders: ['babel', 'style','css']},
+      {test: [/\.js$/,  /\.css$/]},
+      {exclude: /node_modules/}
     ]
   }
+
 }
